@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Register User</h2>
+
+<input id="firstname" placeholder="First name"><br><br>
+<input id="lastname" placeholder="Last name"><br><br>
+<input id="email" placeholder="Email"><br><br>
+
+<button onclick="registerUser()">Register</button>
+
+<p id="status"></p>
+
+<script>
+    function registerUser() {
+        const user = {
+            firstname: document.getElementById("firstname").value,
+            lastname: document.getElementById("lastname").value,
+            email: document.getElementById("email").value
+        };
+
+        fetch("/users/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => {
+            if (!res.ok) throw new Error("Register failed");
+            return res.json();
+        })
+        .then(data => {
+            window.location.href = "/welcome";
+        })
+        .catch(err => {
+            document.getElementById("status").innerText = "Error registering user";
+        });
+    }
+</script>
+
+</body>
+</html>
