@@ -39,4 +39,10 @@ public class PageController {
         model.addAttribute("firstname", user.getFirstname());
         return "welcome";
     }
+
+    @RequestMapping("/get")
+    public String get()
+    {
+        return "get.html";
+    }
 }
